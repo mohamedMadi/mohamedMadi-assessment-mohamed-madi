@@ -1,12 +1,24 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div>
+    <div id="app">
+      <Layout/>
+    </div>
+
+
   </div>
 </template>
+
+<script>
+import Vue from 'vue';
+
+import Layout from '@/components/Layout.vue';
+export default Vue.extend({
+  name: 'app',
+  components: {
+    Layout
+  }
+});
+</script>
 
 <style lang="scss">
 #app {
