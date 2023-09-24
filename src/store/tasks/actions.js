@@ -29,17 +29,7 @@ export default {
     },
 
     filterTasksByStatus({ state }, id) {
-        // state.tasks = state.tasks.filter((obj) => { return obj.status == id })
-        state.tasks = state.tasks.filter((task) => {
-            if(task.status){
-                if (task.status.includes(id)) {
-                  return task;
-                } else {
-                  return false;
-                }
-            }
-          });
-
+        state.tasksFilter = state.tasks.filter( (obj) => {return obj.status == id} )
     },
 
     editTaskFromState({ state }, { id, task }) {

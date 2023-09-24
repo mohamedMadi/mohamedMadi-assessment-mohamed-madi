@@ -11,7 +11,7 @@
 
     <!-- List Tasks -->
     <div class="tasks_wrapper">
-      <div class="single_tasks task_wrapper" v-for="task in tasks" :key="task.id">
+      <div class="single_tasks task_wrapper" v-for="task in listTasks" :key="task.id">
         <div class="actions_btns">
           <button @click="btnEditTask(task.id)">
             <img src="@/assets/edit.svg" alt="" />
@@ -59,8 +59,16 @@ export default {
 
   watch:{
     status() {
-      console.log("statusstatus ", this.status.id)
-      this.filterTasksByStatus(this.status.id)
+      if(this.status != null){
+        this.filterTasksByStatus(this.status.id)
+        this.listTasks = this.tasksFilter
+      }else{
+        this.listTasks = this.tasks
+      }
+    },
+
+    tasks() {
+      this.listTasks = this.tasks
     }
   },
 
@@ -77,11 +85,12 @@ export default {
       ],
       status: null,
       singleTask: {},
+      listTasks:[],
     }
   },
 
   computed: {
-    ...mapState(['tasks'])
+    ...mapState(['tasks', 'tasksFilter'])
   },
 
   methods: {
@@ -100,11 +109,15 @@ export default {
       this.taskId = taskId
       this.actionType = "edit"
       this.$modal.show('modalCreate')
+    },
+
+    callGetListTasks() {
+      this.getListTasks().then(() => this.listTasks = this.tasks )
     }
   },
 
   mounted() {
-    this.getListTasks()
+    this.callGetListTasks()
   }
 }
 </script>

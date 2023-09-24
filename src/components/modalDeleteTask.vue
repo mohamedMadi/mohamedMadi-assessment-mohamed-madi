@@ -24,7 +24,6 @@ export default {
             this.deleteTaskFromState(this.taskId).then(() => {
                 this.$noty.success("Your tasl has been removed!")
                 this.$modal.hide('modalDelete')
-                // this.getListTasks()
             })
         }
     }
