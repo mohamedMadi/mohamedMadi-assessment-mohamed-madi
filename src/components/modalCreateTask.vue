@@ -1,5 +1,5 @@
 <template>
-    <modal name="modalCreate" width="80%" height="auto">
+    <modal name="modalCreate" width="80%" height="auto"  scrollable="true">
         <div class="modalPopUp">
 
             <h4 v-if="actionType == 'create'">Add New Task</h4>

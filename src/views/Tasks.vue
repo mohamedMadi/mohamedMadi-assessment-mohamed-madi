@@ -1,6 +1,11 @@
 <template>
   <div class="tasks">
-    <div class="add_project">
+    <div class="add_taskAndFilter">
+      <div class="input_control">
+        <label>Select Status</label>
+        <Multiselect v-model="status" :options="statuses" label="name" track-by="name" :searchable="false"
+          :close-on-select="true" :show-labels="false" placeholder="Select Status"></Multiselect>
+      </div>
       <button @click="openPopupCreate" type="button">Add New Task</button>
     </div>
 
@@ -40,16 +45,23 @@
 <script>
 import ModalCreateTask from '@/components/modalCreateTask.vue'
 import ModalDeleteTask from '@/components/modalDeleteTask.vue'
-// import Multiselect from "vue-multiselect";
+import Multiselect from "vue-multiselect";
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers('Tasks')
 
 export default {
   name: 'TasksComponent',
   components: {
-    // Multiselect,
+    Multiselect,
     ModalCreateTask,
     ModalDeleteTask
+  },
+
+  watch:{
+    status() {
+      console.log("statusstatus ", this.status.id)
+      this.filterTasksByStatus(this.status.id)
+    }
   },
 
   data() {
@@ -57,8 +69,14 @@ export default {
       endOpen: false,
       taskId: null,
       actionType: "create",
-
-      singleTask:{},
+      statuses: [
+        { id: 1, name: "Todo" },
+        { id: 2, name: "In Progress" },
+        { id: 3, name: "Testing" },
+        { id: 4, name: "Finshing" }
+      ],
+      status: null,
+      singleTask: {},
     }
   },
 
@@ -67,7 +85,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['getListTasks', 'getSingleTask']),
+    ...mapActions(['getListTasks', 'getSingleTask', 'filterTasksByStatus']),
     openPopupCreate() {
       this.actionType = "create"
       this.$modal.show('modalCreate')
@@ -92,13 +110,14 @@ export default {
 </script>
 
 <style>
-.tasks .add_project {
+.tasks .add_taskAndFilter {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 25px;
+  align-items: center;
 }
 
-.tasks .add_project button {
+.tasks .add_taskAndFilter button {
   width: 200px;
   height: 40px;
   border: 0;
@@ -110,11 +129,11 @@ export default {
 }
 
 .tasks .tasks_wrapper span,
-.task .tasks_wrapper span{
-  display:inline-block;
+.task .tasks_wrapper span {
+  display: inline-block;
   padding: 5px 10%;
-  background:#DDD;
-  border-radius:5px;
+  background: #DDD;
+  border-radius: 5px;
 }
 
 
@@ -231,5 +250,4 @@ export default {
   background: #0B6BCB;
   border: 1px solid #0B6BCB
 }
-
 </style>

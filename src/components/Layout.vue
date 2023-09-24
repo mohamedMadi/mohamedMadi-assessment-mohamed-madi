@@ -20,8 +20,11 @@
         <div class="header_content">
           <div class="left">
             <span class="menu_icon" @click="isSideBarOpen = !isSideBarOpen"
-              ><i class="fa fa-bars" aria-hidden="true"></i
-            ></span>
+              >
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
           </div>
           <div class="right">
             <div class="profile">
@@ -1166,6 +1169,16 @@ input[type='number'].number_input:focus {
 .container-header-body .menu_icon {
   display: none;
   cursor: pointer;
+  width:40px;
+}
+
+.container-header-body .menu_icon span{
+  display:block;
+  width:100%;
+  height:4px;
+  border-radius:5px;
+  background:#2c3e50;
+  margin-bottom:5px;
 }
 
 .container-header-body header .right .profile {

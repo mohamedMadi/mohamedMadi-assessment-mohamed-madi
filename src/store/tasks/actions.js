@@ -28,6 +28,20 @@ export default {
         })
     },
 
+    filterTasksByStatus({ state }, id) {
+        // state.tasks = state.tasks.filter((obj) => { return obj.status == id })
+        state.tasks = state.tasks.filter((task) => {
+            if(task.status){
+                if (task.status.includes(id)) {
+                  return task;
+                } else {
+                  return false;
+                }
+            }
+          });
+
+    },
+
     editTaskFromState({ state }, { id, task }) {
         return editTasks(id, task).then(() => {
             state.tasks = state.tasks.map((obj) => {
@@ -42,5 +56,6 @@ export default {
             })
         })
     },
+    
 }
 
